@@ -21,5 +21,7 @@ Route::middleware('auth')->group(function () {
 // Public accounts route
 Route::get('/accounts', [AccountController::class, 'index']); //List all accounts
 Route::get('/accounts', [AccountController::class, 'store']); // Create new account
+Route::put('accounts/{id}', [AccountController::class, 'update']); // Update account
+Route::delete('accounts/{id}', [AccountController::class, 'destroy']); // Delete account
 
 require __DIR__.'/auth.php';
