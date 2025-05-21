@@ -30,4 +30,25 @@ class AccountController extends Controller
         // Return JSON response with 201 created status code
         return response()->json($account, 201);
     }
+
+    public function update(Request $request, $id)
+    {
+
+        //Find the account or fail with 404 error
+        $account = Account::findorFail($id);
+        
+        // Validate incoming request data
+        $validated = $request->validate([
+            'account_number' => 'required|unique:accounts,account_number,' . $id . '|max:20',
+            'holder_name' => 'required|string|max:255',
+            'balance' => 'required|numeric|min:0',
+            'account_type' => 'required|string|in:saving,current',
+        ]);
+
+        //update the account with validated data
+        $account->update($validated);
+
+        //Return the updated account JSON
+        return response()->json($account);
+    }
 }
