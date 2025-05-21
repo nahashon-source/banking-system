@@ -19,6 +19,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Public accounts route
-Route::get('/accounts', [AccountController::class, 'index']);
+Route::get('/accounts', [AccountController::class, 'index']); //List all accounts
+Route::get('/accounts', [AccountController::class, 'store']); // Create new account
 
 require __DIR__.'/auth.php';
