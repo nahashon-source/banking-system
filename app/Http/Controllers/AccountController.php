@@ -36,7 +36,7 @@ class AccountController extends Controller
 
         //Find the account or fail with 404 error
         $account = Account::findorFail($id);
-        
+
         // Validate incoming request data
         $validated = $request->validate([
             'account_number' => 'required|unique:accounts,account_number,' . $id . '|max:20',
@@ -50,5 +50,18 @@ class AccountController extends Controller
 
         //Return the updated account JSON
         return response()->json($account);
+    }
+
+
+    public function destroy($id)
+    {
+        //Find the account or fail with 404 error
+        $account = Account::findorFail($id);
+
+        //Delete the account
+        $account->delete();
+
+        //Return the deleted account JSON
+        return response()->json(['message' => 'Account deleted successfully']);
     }
 }
