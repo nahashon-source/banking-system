@@ -3,10 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\HTTP\Controllers\BankingRecordController;
+use App\HTTP\Controllers\AccountController;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -18,5 +17,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('banking-records', BankingRecordController::class);
 });
+
+//  Route to ge all accounts
+Route::get('./accounts', [AccountController::class, 'index']);
 
 require __DIR__.'/auth.php';
