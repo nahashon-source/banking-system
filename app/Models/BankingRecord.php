@@ -2,11 +2,20 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class BankingRecord extends Model
 {
-    //Define the relationship: each banking record belongs to a user
+    use HasFactory;
+
+    protected $fillable = [
+        'transaction_type',
+        'amount',
+        'description',
+        'user_id',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
