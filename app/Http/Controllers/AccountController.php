@@ -71,4 +71,11 @@ class AccountController extends Controller
     {
         return view('accounts.create');
     }
+
+
+    public function show($id)
+    {
+        $account = Account::findorFail($id);
+        return view('accounts.show', compact('account'));
+    }
 }

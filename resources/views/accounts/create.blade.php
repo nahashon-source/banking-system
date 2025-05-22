@@ -1,53 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <title>Create Account</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-</head>
-<body class="container mt-4">
+@extends('layouts.app')
 
+@section('content')
     <h1>Create New Account</h1>
 
     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
+        <div>
+            <strong>Whoops!</strong> There were some problems with your input:<br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
     @endif
 
     <form action="{{ route('accounts.store') }}" method="POST">
         @csrf
 
-        <div class="mb-3">
-            <label for="account_number" class="form-label">Account Number</label>
-            <input type="text" name="account_number" class="form-control" id="account_number" value="{{ old('account_number') }}" required>
+        <div>
+            <label>Account Number:</label>
+            <input type="text" name="account_number" required>
         </div>
 
-        <div class="mb-3">
-            <label for="holder_name" class="form-label">Holder Name</label>
-            <input type="text" name="holder_name" class="form-control" id="holder_name" value="{{ old('holder_name') }}" required>
+        <div>
+            <label>Holder Name:</label>
+            <input type="text" name="holder_name" required>
         </div>
 
-        <div class="mb-3">
-            <label for="balance" class="form-label">Balance</label>
-            <input type="number" step="0.01" name="balance" class="form-control" id="balance" value="{{ old('balance', 0) }}" required>
+        <div>
+            <label>Balance:</label>
+            <input type="number" name="balance" step="0.01" min="0" required>
         </div>
 
-        <div class="mb-3">
-            <label for="account_type" class="form-label">Account Type</label>
-            <select name="account_type" id="account_type" class="form-select" required>
-                <option value="">Select Type</option>
-                <option value="savings" {{ old('account_type') == 'savings' ? 'selected' : '' }}>Savings</option>
-                <option value="current" {{ old('account_type') == 'current' ? 'selected' : '' }}>Current</option>
+        <div>
+            <label>Account Type:</label>
+            <select name="account_type" required>
+                <option value="">--Select--</option>
+                <option value="saving">Saving</option>
+                <option value="current">Current</option>
             </select>
         </div>
 
-        <button type="submit" class="btn btn-success">Create Account</button>
-        <a href="{{ route('accounts.index') }}" class="btn btn-secondary">Cancel</a>
+        <button type="submit">Create Account</button>
     </form>
-</body>
-</html>
+@endsection
