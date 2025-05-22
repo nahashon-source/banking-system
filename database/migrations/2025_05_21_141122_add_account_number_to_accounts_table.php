@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('accounts', function (Blueprint $table) {
-            $table->id();
+        Schema::table('accounts', function (Blueprint $table) {
+            //
             $table->string('account_number')->unique();
-            $table->string('holder_name');
-            $table->decimal('balance', 15, 2);
-            $table->enum('account_type', ['saving', 'current']);
-            $table->timestamps();
         });
     }
 
@@ -26,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('accounts');
+        Schema::table('accounts', function (Blueprint $table) {
+            //
+        });
     }
 };

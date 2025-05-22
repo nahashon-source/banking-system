@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
-    // Return all accounts as JSON
     public function index()
     {
         $accounts = Account::all();
-        return response()->json($accounts);
+        //return a Blade view instead of json
+        return view('accounts.index', compact('accounts'));
     }
 
     public function store(Request $request)
@@ -28,7 +28,7 @@ class AccountController extends Controller
         $account = Account::create($validated);
 
         // Return JSON response with 201 created status code
-        return response()->json($account, 201);
+        return redirect()->route('accounts.index')->with('success', 'Account created successfully!');
     }
 
     public function update(Request $request, $id)
@@ -63,5 +63,12 @@ class AccountController extends Controller
 
         //Return the deleted account JSON
         return response()->json(['message' => 'Account deleted successfully']);
+    }
+
+
+    //show the account creation form
+    public function create()
+    {
+        return view('accounts.create');
     }
 }
